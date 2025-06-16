@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="chat-app">
       <div className="chat-container">
-        <h2 className="chat-title">AI Chat Interface</h2>
+        <h2 className="chat-title">Cryptocurrency Chat Interface</h2>
         <ChatWindow
           messages={messages}
           scrollRef={scrollRef}

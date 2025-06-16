@@ -34,7 +34,14 @@ export function formatTime(isoUtcTime) {
   });
 }
 
-export const commands = ["/calc", "/weather", "/define", "/portfolio", "/add"];
+export const commands = [
+  "/price",
+  "/portfolio",
+  "/add",
+  "/trending",
+  "/holdings",
+  "/chart",
+];
 
 export const createUserMessage = (text) => ({
   id: Date.now(),

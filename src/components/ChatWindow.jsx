@@ -3,7 +3,15 @@ import MessageBubble from "./MessageBubble";
 import "../styles/ChatWindow.scss";
 import { Button, Stack } from "@mui/material";
 import { commands } from "../constants/Constants";
-import { Calculate, MenuBook, SmartToy, WbSunny } from "@mui/icons-material";
+import {
+  AddCard,
+  AttachMoney,
+  LocalOffer,
+  SmartToy,
+  TrendingUp,
+  Whatshot,
+  Work,
+} from "@mui/icons-material";
 
 const ChatWindow = ({ messages, scrollRef, input, setInput }) => {
   // Set Input Field Blank on Start (before clicking button)
@@ -23,12 +31,18 @@ const ChatWindow = ({ messages, scrollRef, input, setInput }) => {
   //Icons for different command buttons
   const getButtonIcon = (ele) => {
     switch (ele) {
-      case "/calc":
-        return <Calculate sx={{ fontSize: 30, mr: 1 }} />;
-      case "/weather":
-        return <WbSunny sx={{ fontSize: 30, mr: 1 }} />;
-      case "/define":
-        return <MenuBook sx={{ fontSize: 30, mr: 1 }} />;
+      case "/portfolio":
+        return <Work sx={{ fontSize: 28, mr: 1 }} />;
+      case "/add":
+        return <AddCard sx={{ fontSize: 28, mr: 1 }} />;
+      case "/holdings":
+        return <AttachMoney sx={{ fontSize: 28, mr: 1 }} />;
+      case "/trending":
+        return <Whatshot sx={{ fontSize: 28, mr: 1 }} />;
+      case "/price":
+        return <LocalOffer sx={{ fontSize: 28, mr: 1 }} />;
+      case "/chart":
+        return <TrendingUp sx={{ fontSize: 28, mr: 1 }} />;
       default:
         return null;
     }
