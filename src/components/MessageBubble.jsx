@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/MessageBubble.scss";
+import Chart from "react-apexcharts";
 
 const MessageBubble = ({ message }) => {
   const { sender, type, content, pluginName, pluginData } = message;
@@ -107,6 +108,99 @@ const MessageBubble = ({ message }) => {
     );
   };
 
+  //Render Raw Holdings Output
+  const renderHoldings = () => {
+    const { list } = pluginData;
+
+    return (
+      <div className="plugin-card holdings-card">
+        <strong>📦 Your Holdings:</strong>
+        <ul>
+          {list.map((entry, index) => (
+            <li key={index}>{entry}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
+  //Render Price Command Output
+  const renderPrice = () => {
+    const { name, symbol, price, logo } = pluginData;
+    return (
+      <div className="plugin-card price-card">
+        <div className="coin-row">
+          <img src={logo} alt={symbol} className="coin-logo" />
+          <div className="coin-details">
+            <strong>{symbol}</strong> ({name})<br />
+            Current Price: <strong>${price}</strong>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  //Render Chart Command Output
+  const renderChart = () => {
+    const options = pluginData?.options;
+    const series = pluginData?.series;
+
+    if (pluginData?.error) {
+      return (
+        <div className="plugin-card chart-card error-card">
+          ⚠️ {pluginData.error}
+        </div>
+      );
+    }
+
+    if (!series || !options) {
+      return (
+        <div className="plugin-card chart-card">
+          ⏳ Chart loading failed or data missing.
+        </div>
+      );
+    }
+
+    return (
+      <div className="plugin-card chart-card">
+        <Chart options={options} series={series} type="line" height={300} />
+      </div>
+    );
+  };
+
+  const renderTrending = () => {
+    const coins = pluginData?.coins;
+
+    if (!Array.isArray(coins)) {
+      return (
+        <div className="plugin-card error-card">⚠️ No trending data found.</div>
+      );
+    }
+
+    //Render Trending Coins
+    return (
+      <div className="plugin-card trending-card">
+        <strong>📈 Trending Coins:</strong>
+        <ul className="trending-list">
+          {coins.map((coin, index) => (
+            <li key={index} className="trending-coin">
+              <img
+                src={coin.thumb_img}
+                alt={coin.symbol}
+                className="coin-logo"
+              />
+              <div className="coin-details">
+                <strong>{coin.symbol}</strong> — {coin.name}
+                <br />
+                Rank: #{coin.market_cap_rank}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
   // Render Plugin Output to Chat Window
   const renderPlugin = () => {
     if (!pluginData) return null;
@@ -121,6 +215,14 @@ const MessageBubble = ({ message }) => {
         return renderDefine();
       case "portfolio":
         return renderPortfolio();
+      case "holdings":
+        return renderHoldings();
+      case "price":
+        return renderPrice();
+      case "chart":
+        return renderChart();
+      case "trending":
+        return renderTrending();
       default:
         return (
           <div className="plugin-card">

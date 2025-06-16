@@ -67,4 +67,27 @@
     margin-top: 12px;
     color: #2e7d32;
   }
+
+  .trending-card {
+    .trending-list {
+      list-style: none;
+      padding-left: 0;
+
+      .trending-coin {
+        display: flex;
+        align-items: center;
+        margin: 8px 0;
+
+        .coin-logo {
+          width: 24px;
+          height: 24px;
+          margin-right: 8px;
+        }
+
+        .coin-details {
+          font-size: 14px;
+        }
+      }
+    }
+  }
 }

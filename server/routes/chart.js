@@ -1,6 +1,6 @@
 const express = require("express");
 const axios = require("axios");
-const SYMBOL_TO_ID = require("../data/constants");
+const { SYMBOL_TO_ID } = require("../data/constants");
 
 const router = express.Router();
 
@@ -24,7 +24,9 @@ router.get("/:symbol", async (req, res) => {
     });
   } catch (err) {
     console.error("API error:", err.message);
-    return res.status(500).json({ error: "Failed to fetch description." });
+    return res
+      .status(err.status)
+      .json({ error: "Failed to fetch description." });
   }
 });
 

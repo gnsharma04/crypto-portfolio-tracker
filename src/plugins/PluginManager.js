@@ -3,6 +3,10 @@ import weatherPlugin from "./WeatherPlugin.js";
 import definePlugin from "./DefinePlugin.js";
 import portfolioPlugin from "./PortfolioPlugin.js";
 import addPlugin from "./AddPlugin.js";
+import rawHoldingsPlugin from "./RawHoldingsPlugin.js";
+import pricePlugin from "./PricePlugin.js";
+import chartPlugin from "./ChartPlugin.js";
+import trendingPlugin from "./TrendingPlugin.js";
 
 const plugins = [
   calcPlugin,
@@ -10,6 +14,10 @@ const plugins = [
   definePlugin,
   portfolioPlugin,
   addPlugin,
+  rawHoldingsPlugin,
+  pricePlugin,
+  chartPlugin,
+  trendingPlugin,
 ];
 
 export const isPluginCommand = (input) => input.startsWith("/");

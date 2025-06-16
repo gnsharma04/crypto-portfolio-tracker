@@ -13,15 +13,14 @@ router.get("/:symbol", async (req, res) => {
   }
 
   try {
-    const url = `https://api.coingecko.com/api/v3/simple/price`;
-    const response = await axios.get(url, {
-      params: {
-        ids: coinId,
-        vs_currencies: "usd",
-      },
-    });
+    const response = await axios.get(
+      `https://api.coingecko.com/api/v3/coins/${coinId}`
+    );
 
-    const price = response.data[coinId]?.usd;
+    const data = response.data;
+    const price = data.market_data?.current_price?.usd;
+    const name = data.name;
+    const logo = data.image?.thumb || data.image?.small || data.image?.large;
 
     if (!price) {
       return res.status(404).json({ error: "Price data not found." });
@@ -30,12 +29,14 @@ router.get("/:symbol", async (req, res) => {
     return res.json({
       symbol,
       coinId,
+      name,
       price,
+      logo,
       currency: "USD",
     });
   } catch (err) {
     console.error("API error:", err.message);
-    return res.status(500).json({ error: "Failed to fetch price." });
+    return res.status(500).json({ error: "Failed to fetch coin data." });
   }
 });
 
