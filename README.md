@@ -1,4 +1,4 @@
-# 💬 Crypto Chatbot with Plugins
+# 💬 Crypto Chatbot
 
 A plugin-based chatbot built with **React** and **Node.js** that supports real-time cryptocurrency features like live price, charts, portfolio breakdown, and trending coins using the CoinGecko API.
 
@@ -36,16 +36,20 @@ cd crypto-chatbot
 
 ### 2. Backend Setup
 
+```bash
 cd server
 npm install
 npm run dev
+```
 
-# Server runs at http://localhost:5000
+-Server runs at http://localhost:5000
 
 ### 3. Frontend Setup
 
+```bash
 cd src
 npm install
 npm run dev
+```
 
-# Server runs at http://localhost:3000
+-Server runs at http://localhost:3000
