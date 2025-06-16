@@ -34,4 +34,19 @@ export function formatTime(isoUtcTime) {
   });
 }
 
-export const commands = ["/calc", "/weather", "/define"];
+export const commands = ["/calc", "/weather", "/define", "/portfolio", "/add"];
+
+export const createUserMessage = (text) => ({
+  id: Date.now(),
+  sender: "user",
+  content: text,
+  type: "text",
+});
+
+export const createBotMessage = (text, isTyping = false) => ({
+  id: Date.now() + 1,
+  sender: "bot",
+  content: text,
+  type: "text",
+  isTyping,
+});

@@ -5,33 +5,34 @@ const { FILE_PATH, SYMBOL_TO_ID, loadHoldings } = require("../data/constants");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  let coinList = [];
-
   const holdings = loadHoldings(FILE_PATH);
-
-  for (const [symbol, quantity] of Object.entries(holdings)) {
-    const id = SYMBOL_TO_ID[symbol];
-    coinList.push(id);
-  }
+  const coinList = Object.entries(holdings)
+    .map(([symbol]) => SYMBOL_TO_ID[symbol])
+    .filter(Boolean);
 
   try {
-    const url = `https://api.coingecko.com/api/v3/simple/price?ids=${coinList}&vs_currencies=usd`;
+    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinList.join(
+      ","
+    )}`;
 
     const response = await axios.get(url);
-    const data = response.data;
 
-    let breakdown = [];
     let total_value = 0;
 
-    for (const [symbol, amount] of Object.entries(holdings)) {
-      const id = SYMBOL_TO_ID[symbol];
-      const price = data[id]?.usd;
-      if (!price) continue;
-
-      const value = amount * price;
-      breakdown.push({ symbol, amount, price, value });
+    const breakdown = response.data.map((coin) => {
+      const amount = holdings[coin.symbol.toUpperCase()];
+      const value = coin.current_price * amount;
       total_value += value;
-    }
+
+      return {
+        symbol: coin.symbol.toUpperCase(),
+        name: coin.name,
+        price: coin.current_price,
+        amount,
+        value,
+        logo: coin.image,
+      };
+    });
 
     return res.json({ total_value, breakdown });
   } catch (err) {

@@ -34,4 +34,37 @@
       background-color: #ffe6e6;
     }
   }
+
+  .portfolio-card {
+    background-color: #f5f7fa;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 8px;
+  }
+
+  .coin-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .coin-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    object-fit: cover;
+  }
+
+  .coin-details {
+    font-size: 14px;
+  }
+
+  .portfolio-total {
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 12px;
+    color: #2e7d32;
+  }
 }

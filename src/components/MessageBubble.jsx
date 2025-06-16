@@ -78,7 +78,36 @@ const MessageBubble = ({ message }) => {
     );
   };
 
-  // Rendur Plugin Output to Chat Window
+  //Render Portfolio Command Output
+  const renderPortfolio = () => {
+    const breakdown = pluginData?.pluginData?.breakdown;
+    const total = pluginData?.pluginData?.total;
+
+    if (!Array.isArray(breakdown)) {
+      return (
+        <div className="plugin-card error-card">⚠️ No holdings found.</div>
+      );
+    }
+
+    return (
+      <div className="plugin-card portfolio-card">
+        {breakdown.map((coin) => (
+          <div key={coin.symbol} className="coin-row">
+            <img src={coin.logo} alt={coin.symbol} className="coin-logo" />
+            <div className="coin-details">
+              <strong>{coin.symbol}</strong> ({coin.name})<br />
+              {coin.amount} × ${coin.price} = <strong>${coin.value}</strong>
+            </div>
+          </div>
+        ))}
+        <div className="portfolio-total">
+          💰 <strong>Total:</strong> ${total}
+        </div>
+      </div>
+    );
+  };
+
+  // Render Plugin Output to Chat Window
   const renderPlugin = () => {
     if (!pluginData) return null;
     if (pluginData.error) return renderError();
@@ -90,6 +119,8 @@ const MessageBubble = ({ message }) => {
         return renderWeather();
       case "define":
         return renderDefine();
+      case "portfolio":
+        return renderPortfolio();
       default:
         return (
           <div className="plugin-card">
