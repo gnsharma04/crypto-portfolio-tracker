@@ -1,4 +1,4 @@
-# 💬 Crypto Chatbot
+# 💬 Crypto Chat App
 
 A plugin-based chatbot built with **React** and **Node.js** that supports real-time cryptocurrency features like live price, charts, portfolio breakdown, and trending coins using the CoinGecko API.
 
